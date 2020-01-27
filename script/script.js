@@ -5,10 +5,6 @@ const opts = ["*", "/", "+", "-", "9", "8", "7", "6", "5", "4", "3", "2", "1", "
 /* special operations key: */
 const spec = ["*", "/", "+", "-",];
 
-/* function for buttons: */
-function addOutput(e) {
-	console.log(e);
-}
 
 function init() {
 	document.title = "JavaScript Calculator";
@@ -32,7 +28,6 @@ function init() {
 	output.style.textAlign = "right";
 	output.style.margin = "3px";
 	output.style.border = "1px solig grey";
-	/*output.style.borderRadius = "3px";*/
 	container.appendChild(output);
 
 /* calculator's body element: */
@@ -61,6 +56,14 @@ function init() {
 		btn.addEventListener("click", myFunction);
 		/* ...and their place in the project: */
 		main.appendChild(btn);
+	}
+
+	/* function for buttons: */
+	function addOutput(e) {
+		console.log(e.target.val); // helps to see which key is presed (shows its value)
+		let char = e.target.val;
+		output.value += char;
+	
 	}
 
 
