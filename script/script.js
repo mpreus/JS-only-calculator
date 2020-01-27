@@ -8,6 +8,9 @@ const spec = ["*", "/", "+", "-",];
 
 function init() {
 	document.title = "JavaScript Calculator";
+/* background */
+	const body = document.getElementsByTagName("body");
+	body[0].style.backgroundColor = "#e1e6cf";
 
 /* container for calculator */
 	const container = document.createElement("div");
