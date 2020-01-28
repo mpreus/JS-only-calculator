@@ -41,9 +41,29 @@ function init() {
 
 /* keys for calculator: */
 	opts.forEach(function(val) {
-		console.log(val);
+		// console.log(val);
 		btnMaker(val, addOutput);
 	});
+
+
+	btnMaker("=", evaluateOutput); // evaluates output
+	btnMaker("C", clearOutput); // clears the output
+
+	function evaluateOutput() {
+		output.style.border = "1px solid black";
+		console.log("=");
+		if (output.value === "") {
+			output.style.border = "2px solid red"; // warning red border
+		}
+		else {
+			output.value = eval(output.value); // proper value of the calculations
+		}
+	}
+
+	function clearOutput() {
+		output.style.border = "1px solid black";
+		output.value = "";
+	}
 
 /* making buttons with their attributes... */
 	function btnMaker(txt, myFunction) {
@@ -63,9 +83,10 @@ function init() {
 
 	/* function for buttons: */
 	function addOutput(e) {
+		output.style.border = "1px solid black";
 		console.log(e.target.val); // helps to see which key is presed (shows its value)
 		let char = e.target.val;
-		output.value += char;
+		output.value += char; 
 	
 	}
 
