@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", init);
 /* all keys needed in the project: */
 const opts = ["*", "/", "+", "-", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0", "."];
 /* special operations key: */
-const spec = ["*", "/", "+", "-",];
+const specChar = ["*", "/", "+", "-",];
 
 
 function init() {
@@ -11,6 +11,9 @@ function init() {
 /* background */
 	const body = document.getElementsByTagName("body");
 	body[0].style.backgroundColor = "#e1e6cf";
+/* for evoiding many decimal dots in one number: */
+	let decimal = false;
+	let evaluation = false;
 
 /* container for calculator */
 	const container = document.createElement("div");
@@ -51,12 +54,12 @@ function init() {
 
 	function evaluateOutput() {
 		output.style.border = "1px solid black";
-		console.log("=");
+		// console.log("=");
 		if (output.value === "") {
 			output.style.border = "2px solid red"; // warning red border
 		}
 		else {
-			output.value = eval(output.value); // proper value of the calculations
+			output.value = eval(output.value); // proper value of calculations
 		}
 	}
 
@@ -83,11 +86,30 @@ function init() {
 
 	/* function for buttons: */
 	function addOutput(e) {
+		// console.log(decimal);
+
 		output.style.border = "1px solid black";
-		console.log(e.target.val); // helps to see which key is presed (shows its value)
+		// console.log(e.target.val); 
+		// the line above helps to see which key is presed (shows its value)
 		let char = e.target.val;
-		output.value += char; 
-	
+		
+		/* if there is a decimal sign, we do not need more them in the output area */
+		if (char === ".") {
+			if (decimal) {
+				char = "";
+				output.style.border = "2px solid red";
+			}
+			else {
+				decimal = true;
+			}
+		}
+		/* to evaluate only maths operations signs and enable add decimal sign in many numbers in the output area: */
+		evaluation = specChar.includes(char);
+		if (evaluation) {
+			decimal = false;
+		}
+		output.value += char;
+
 	}
 
 
