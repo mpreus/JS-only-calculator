@@ -24,6 +24,7 @@ function init() {
 	container.style.margin = "auto";
 	container.style.border = "1px solid grey";
 	container.style.borderRadius = "5px";
+	container.style.backgroundColor = "#02075d"
 	document.body.appendChild(container);
 
 /* output - space for results of calculations, placed in the 'container': */
@@ -34,8 +35,9 @@ function init() {
 	output.style.lineHeight = "50px";
 	output.style.fontSize = "3em";
 	output.style.textAlign = "right";
-	output.style.margin = "3px";
-	output.style.border = "1px solig grey";
+	output.style.margin = "4px";
+	output.style.border = "1px solid grey";
+	output.style.borderRadius = "4px";
 	container.appendChild(output);
 
 /* calculator's body element: */
@@ -88,8 +90,14 @@ function init() {
 		btn.style.lineHeight = "50px";
 		btn.style.margin = "1%";
 		btn.style.fontSize = "2em";
+		btn.style.borderRadius = "4px";
+		btn.style.backgroundColor = "#dcdcdc";
 		btn.val = txt;
 		btn.textContent = txt;
+		if ( btn.textContent.includes("*") || btn.textContent.includes("/") || btn.textContent.includes("-") || btn.textContent.includes("+") ) {
+			btn.style.backgroundColor = "#808080";
+			btn.style.color = "#fff";
+		}
 		/* ...their events... */
 		btn.addEventListener("click", myFunction);
 		/* ...and their place in the project: */
@@ -99,12 +107,10 @@ function init() {
 	/* function for buttons: */
 	function addOutput(e) {
 		// console.log(decimal);
-
 		colorOutput("black");
 		// console.log(e.target.val); 
 		// the line above helps to see which key is presed (shows its value)
 		let char = e.target.val;
-		
 		/* if there is a decimal sign, we do not need more them in the output area */
 		if (char === ".") {
 			if (decimal) {
