@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", init);
 
 /* all keys needed in the project: */
 const opts = ["*", "/", "+", "-", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0", "."];
-/* special operations key: */
+/* special operations key only: */
 const specChar = ["*", "/", "+", "-",];
 
 
@@ -11,10 +11,12 @@ function init() {
 /* background */
 	const body = document.getElementsByTagName("body");
 	body[0].style.backgroundColor = "#e1e6cf";
-/* for evoiding many decimal dots in one number: */
+
+/* variables for evoiding many decimal dots in one number: */
 	let decimal = false;
 	let evaluation = false;
 
+/* VISUAL PART OF CALCULATOR */
 /* container for calculator */
 	const container = document.createElement("div");
 	container.classList.add("container");
@@ -42,29 +44,39 @@ function init() {
 	main.style.width = "100%";
 	container.appendChild(main);
 
-/* keys for calculator: */
+/* keys (buttons) for calculator looping through 'opts' array and using a function: */
 	opts.forEach(function(val) {
 		// console.log(val);
 		btnMaker(val, addOutput);
 	});
 
-
+/* MATHS OPERATIONS ENABLED */
 	btnMaker("=", evaluateOutput); // evaluates output
 	btnMaker("C", clearOutput); // clears the output
 
+/* for handling errors - demonstrating visualy */
+	function colorOutput(colorValue) {
+		output.style.border = colorValue + "1px solid";
+		output.style.color = colorValue;
+	}
+
 	function evaluateOutput() {
-		output.style.border = "1px solid black";
+		colorOutput("black");
 		// console.log("=");
 		if (output.value === "") {
-			output.style.border = "2px solid red"; // warning red border
+			colorOutput("red");
+		} 
+		else if (evaluation) {
+			colorOutput("red");
 		}
 		else {
 			output.value = eval(output.value); // proper value of calculations
 		}
+		decimal = output.value.includes(".");
 	}
-
+/* clearing the output: */
 	function clearOutput() {
-		output.style.border = "1px solid black";
+		colorOutput("black");
 		output.value = "";
 	}
 
@@ -88,7 +100,7 @@ function init() {
 	function addOutput(e) {
 		// console.log(decimal);
 
-		output.style.border = "1px solid black";
+		colorOutput("black");
 		// console.log(e.target.val); 
 		// the line above helps to see which key is presed (shows its value)
 		let char = e.target.val;
@@ -97,7 +109,7 @@ function init() {
 		if (char === ".") {
 			if (decimal) {
 				char = "";
-				output.style.border = "2px solid red";
+				colorOutput("red");
 			}
 			else {
 				decimal = true;
@@ -109,7 +121,6 @@ function init() {
 			decimal = false;
 		}
 		output.value += char;
-
 	}
 
 
