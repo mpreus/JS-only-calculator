@@ -5,12 +5,14 @@ const opts = ["*", "/", "+", "-", "9", "8", "7", "6", "5", "4", "3", "2", "1", "
 /* special operations key only: */
 const specChar = ["*", "/", "+", "-",];
 
-
 function init() {
 	document.title = "JavaScript Calculator";
 /* background */
 	const body = document.getElementsByTagName("body");
 	body[0].style.backgroundColor = "#e1e6cf";
+	
+	const calcFrame = document.getElementById("calc");
+	console.log(calcFrame);
 
 /* variables for evoiding many decimal dots in one number: */
 	let decimal = false;
@@ -25,7 +27,7 @@ function init() {
 	container.style.border = "1px solid grey";
 	container.style.borderRadius = "5px";
 	container.style.backgroundColor = "#02075d"
-	document.body.appendChild(container);
+	calcFrame.appendChild(container);
 
 /* output - space for results of calculations, placed in the 'container': */
 	const output = document.createElement("input");
@@ -45,6 +47,18 @@ function init() {
 	main.classList.add("main");
 	main.style.width = "100%";
 	container.appendChild(main);
+
+	const foot = document.createElement("footer");
+	foot.style.cursor = "pointer";
+	foot.style.marginTop = "30px";
+	foot.style.textAlign = "center";
+	document.body.appendChild(foot);
+	
+	const mailToAuthor = document.createElement("a");
+	mailToAuthor.textContent = "2020@Maciej Preus";
+	mailToAuthor.style.textDecoration = "none";
+	mailToAuthor.setAttribute("href", "mailto:mpreus@onet.eu");
+	foot.appendChild(mailToAuthor);
 
 /* keys (buttons) for calculator looping through 'opts' array and using a function: */
 	opts.forEach(function(val) {
@@ -128,6 +142,4 @@ function init() {
 		}
 		output.value += char;
 	}
-
-
 }
